@@ -2,10 +2,14 @@
 
 int main(int argc, char **argv)
 {
-    FILE *fp = fopen("./input.txt", "r");
-    if (!fp) {
-        fprintf(stderr, "Failed to open input\n");
-        return 1;
+    FILE *fp = stdin;
+
+    if (argc > 1) {
+        fp = fopen(argv[1], "r");
+        if (!fp) {
+            fprintf(stderr, "failed to open input file\n");
+            return 1;
+        }
     }
 
     char c;
@@ -15,7 +19,7 @@ int main(int argc, char **argv)
 
     while ((c = fgetc(fp)) != EOF) {
         if (c == '\n') {
-            //printf("\t f=%i,l=%i\n", first, last);
+            printf("\t f=%i,l=%i\n", first, last);
             if (first > -1 && last > -1) {
                 ans += first * 10 + last;
             }
@@ -25,7 +29,7 @@ int main(int argc, char **argv)
             continue;
         }
 
-        //printf("%c", c);
+        printf("%c", c);
         if (c >= '0' && c <= '9') {
             c -= '0';
             if (first == -1) {
